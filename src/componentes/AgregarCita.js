@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { agregarCitaAction } from '../actions/CitasActions'
+import uuid from 'uuid/v4'
 
 const AgregarCita= () => {
     // State del componente
@@ -8,13 +11,33 @@ const AgregarCita= () => {
     const [ hora, guardarHora ] = useState('')
     const [ sintomas, guardarSintomas ] = useState('')
 
+    // Dispatch para ejecuta nuestras acciones
+    const dispatch = useDispatch()
+    const agregarNuevaCita = cita => dispatch(agregarCitaAction(cita))
 
+    const submitNuevaCita = e => {
+        e.preventDefault()
+
+        //validar formulario
+
+        //crear cita
+        agregarNuevaCita({
+            id: uuid(),
+            mascota,
+            propietario,
+            fecha,
+            hora,
+            sintomas
+        })
+
+        // Reiniciar el formulario
+    }
 
     return (
         <div className="card mt-5">
             <div className="card-body">
                 <h2 className="card-title text-center mb-5">Agrega las citas aqui</h2>
-                <form>
+                <form onSubmit={submitNuevaCita}>
                     <div className="form-group row">
                         <label className="col-sm-4 col-lg-2 col-form-label">Nombre Mascota</label>
                         <div className="col-sm-8 col-lg-10">
