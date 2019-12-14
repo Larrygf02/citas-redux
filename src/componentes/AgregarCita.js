@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { agregarCitaAction } from '../actions/CitasActions'
+import { validarFormularioAction } from '../actions/ValidarActions'
 import uuid from 'uuid/v4'
 
 const AgregarCita= () => {
@@ -14,12 +15,18 @@ const AgregarCita= () => {
     // Dispatch para ejecuta nuestras acciones
     const dispatch = useDispatch()
     const agregarNuevaCita = cita => dispatch(agregarCitaAction(cita))
+    const validarFormulario = estado => dispatch(validarFormularioAction(estado))
 
     const submitNuevaCita = e => {
         e.preventDefault()
 
         //validar formulario
+        if (mascota.trim() === '' || propietario.trim() === ''  || fecha.trim() === '' || hora.trim() === '' || sintomas.trim() === '') {
+            validarFormulario(true)
+            return;
+        }
 
+        validarFormulario(false)
         //crear cita
         agregarNuevaCita({
             id: uuid(),
@@ -31,6 +38,11 @@ const AgregarCita= () => {
         })
 
         // Reiniciar el formulario
+        guardarMascota('')
+        guardarPropietario('')
+        guardarFecha('')
+        guardarHora('')
+        guardarSintomas('')
     }
 
     return (
