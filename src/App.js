@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {useState } from 'react';
+import AgregarCita from './componentes/AgregarCita'
+
+// Redux
 import store from './store'
 import { Provider } from 'react-redux'
 
@@ -11,7 +14,7 @@ function App() {
         </header>
         <div className="row mt-3">
           <div className="col-md-6">
-            Formulario aqui
+            <AgregarCita/>
           </div>
           <div className="col-md-6">
             Listado aqui
