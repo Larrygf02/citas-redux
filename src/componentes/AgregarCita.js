@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { agregarCitaAction } from '../actions/CitasActions'
 import { validarFormularioAction } from '../actions/ValidarActions'
 import uuid from 'uuid/v4'
@@ -16,6 +16,10 @@ const AgregarCita= () => {
     const dispatch = useDispatch()
     const agregarNuevaCita = cita => dispatch(agregarCitaAction(cita))
     const validarFormulario = estado => dispatch(validarFormularioAction(estado))
+
+    // useSelector es similar a mapStateToProps en hooks
+    const error = useSelector((state) => state.error)
+    console.log(error);
 
     const submitNuevaCita = e => {
         e.preventDefault()
@@ -112,7 +116,10 @@ const AgregarCita= () => {
                             <button type="submit" className="btn btn-success w-100">Agregar</button>
                         </div>
                     </div>
-                </form>   
+                </form>  
+                {error.error ? <div className="alert alert-danger text-center p2">
+                    Todos los campos son obligatorios
+                </div>: null} 
             </div>
         </div>
     )
